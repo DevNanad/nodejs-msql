@@ -1,7 +1,6 @@
-const { query } = require('express')
 const mysql = require('mysql')
 
-
+//create database connection configuration
 const dbConfig = {
     host:"localhost",
     user: "root",
@@ -10,9 +9,10 @@ const dbConfig = {
     database: "pracjs"
 }
 
+//create database connection
 const db = mysql.createConnection(dbConfig)
 
-
+//connect to the database
 module.exports = (query) => {
     return new Promise((resolve, reject) => {
         db.connect((error) =>{

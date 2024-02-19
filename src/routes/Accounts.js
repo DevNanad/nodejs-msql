@@ -1,44 +1,39 @@
 const express = require("express")
 const router = express.Router()
 
+const RegisterService = require('../services/Register')
+const LoginService = require('../services/Login')
 
-const CreateService = require('../services/Create')
-const RetrieveService = require('../services/Retrieve')
-
+//Register Account
 router.post(`/register`, async(req, res) => {
     const {fullname, username, password} = req.body
 
-    const result = await CreateService(fullname, username, password)
+    const result = await RegisterService(fullname, username, password)
 
     if(result){
         res.status(200).json({
-            "message": "Successful!"
+            "message": "success"
         })
     }else{
-        res.status(500).json({
-            "message": "Error!"
+        res.status(400).json({
+            "error": "Error creating account"
         })
     }
 })
 
-
-
-
-/* Retrieve*/
+//Login Account
 router.post('/login', async(req, res) => {
     const {username, password} = req.body
-
-
-    const result = await RetrieveService(username, password)
+    const result = await LoginService(username, password)
 
     if(result){
         console.log(result)
         res.status(200).json({
-            "message": "Successful!"
+            "message": "success"
         })
     }else{
-        res.status(500).json({
-            "message": "Error!"
+        res.status(401).json({
+            "error": "Error logging in"
         })
     }
 })
