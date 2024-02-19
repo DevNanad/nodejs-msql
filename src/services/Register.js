@@ -6,7 +6,7 @@ module.exports = async (fullname, username, password) =>{
       const query = `INSERT INTO ` +
                       `user ` +
                       `VALUES ` +
-                        `(null, '${username}', '${password}', NOW(), '${fullname}')`
+                        `(null, '${username}', md5('${password}'), NOW(), '${fullname}')`
       await connection(query)
       
       return true

@@ -1,17 +1,14 @@
 const express = require('express')
-const accountRouter = require('./routes/Accounts')
-
-
 const app = express()
 
-/* middleware*/
+const accountRouter = require('./routes/Accounts')
+
+//middleware
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use('/api', accountRouter)
 
-app.get('/', (req, res) =>{
-    res.send("hellow world")
-})
+//routes
+app.use('/api', accountRouter)
 
 const port = 3002
 
