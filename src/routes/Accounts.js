@@ -3,6 +3,7 @@ const router = express.Router()
 
 const RegisterService = require('../services/Register')
 const LoginService = require('../services/Login')
+const GetUserService = require('../services/GetUser')
 
 //Register Account
 router.post(`/register`, async(req, res) => {
@@ -35,6 +36,32 @@ router.post('/login', async(req, res) => {
     }else{
         res.status(401).json({
             "error": "Error logging in"
+        })
+    }
+})
+
+
+
+//Get User 
+router.get('/user', async(req, res) => {
+    const {id} = req.body
+    const result = await GetUserService(id)
+
+    if(result){
+        if(result[0]?.id){
+            res.status(200).json({
+                "message": "success",
+                "username": result[0]?.username,
+                "fullname": result[0]?.fullname
+            })
+        }else{
+            res.status(401).json({
+                "error": "User information not found"
+            })
+        }
+    }else{
+        res.status(401).json({
+            "error": "User information not found"
         })
     }
 })
