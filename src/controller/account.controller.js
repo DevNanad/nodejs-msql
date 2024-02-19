@@ -1,12 +1,9 @@
-const express = require("express")
-const router = express.Router()
-
 const RegisterService = require('../services/Register')
 const LoginService = require('../services/Login')
 const GetUserService = require('../services/GetUser')
 
 //Register Account
-router.post(`/register`, async(req, res) => {
+exports.register = async(req, res) => {
     const {fullname, username, password} = req.body
 
     const result = await RegisterService(fullname, username, password)
@@ -20,10 +17,11 @@ router.post(`/register`, async(req, res) => {
             "error": "Error creating account"
         })
     }
-})
+}
+
 
 //Login Account
-router.post('/login', async(req, res) => {
+exports.login = async(req, res) => {
     const {username, password} = req.body
     const result = await LoginService(username, password)
 
@@ -38,12 +36,10 @@ router.post('/login', async(req, res) => {
             "error": "Error logging in"
         })
     }
-})
+}
 
-
-
-//Get User 
-router.get('/user', async(req, res) => {
+//Get User
+exports.getUser = async(req, res) => {
     const {id} = req.body
     const result = await GetUserService(id)
 
@@ -64,6 +60,4 @@ router.get('/user', async(req, res) => {
             "error": "User information not found"
         })
     }
-})
-
-module.exports = router
+}

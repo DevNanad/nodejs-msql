@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors');
 
-const accountRouter = require('./routes/Accounts')
+const accountRouter = require('./routes/account.router')
 
 //middleware
 app.use(cors());
