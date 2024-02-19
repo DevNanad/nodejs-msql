@@ -27,9 +27,10 @@ router.post('/login', async(req, res) => {
     const result = await LoginService(username, password)
 
     if(result){
-        console.log(result)
+        console.log(result[0].id)
         res.status(200).json({
-            "message": "success"
+            "message": "success",
+            "userId": result[0].id
         })
     }else{
         res.status(401).json({
