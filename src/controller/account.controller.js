@@ -26,10 +26,17 @@ exports.login = async(req, res) => {
     const result = await LoginService(username, password)
 
     if(result){
-        res.status(200).json({
-            "message": "success",
-            "userId": result[0]?.id
-        })
+        if(result.length){
+            res.status(200).json({
+                "message": "success",
+                "userId": result[0]?.id,
+                "role": result[0]?.role
+            })
+        }else{
+            res.status(401).json({
+                "error":"Incorrect username or password"
+            })
+        }
     }else{
         res.status(401).json({
             "error": "Error logging in"
@@ -43,7 +50,7 @@ exports.getUser = async(req, res) => {
     const result = await GetUserService(id)
 
     if(result){
-        if(result[0]?.id){
+        if(result.length){
             res.status(200).json({
                 "message": "success",
                 "username": result[0]?.username,
@@ -56,7 +63,7 @@ exports.getUser = async(req, res) => {
         }
     }else{
         res.status(401).json({
-            "error": "User information not found"
+            "error": "Error getting user information"
         })
     }
 }
